@@ -2010,8 +2010,9 @@ class PlayState extends MusicBeatState
 		DiscordClient.resetClientID();
 		#end
 
-		MusicBeatState.switchState(new ChartingState(!chartingMode));
-		chartingMode = true;
+                ChartingState.savedChartPositions.set(PlayState.SONG.song.toLowerCase(), Conductor.songPosition);
+                MusicBeatState.switchState(new ChartingState(!chartingMode));
+                chartingMode = true;
 	}
 
 	function openCharacterEditor()
