@@ -98,6 +98,7 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 	public static var GRID_PLAYERS = 2;
 	public static var GRID_SIZE = 40;
 	final BACKUP_EXT = '.bkp';
+	public static var savedChartPositions:Map<String, Float> = new Map();
 
 	public var quantizations:Array<Int> = [
 		4,
@@ -261,6 +262,15 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 			chartEditorSave.data.customNextGridColors = ['5F5F5F', '4A4A4A'];
 		
 		changeTheme(chartEditorSave.data.theme != null ? chartEditorSave.data.theme : DEFAULT, false);
+
+		var songName:String = ChartingState.songName.toLowerCase();
+
+                if (savedChartPositions.exists(songName)) {
+	        var savedPos:Float = savedChartPositions.get(songName);
+	        Conductor.songPosition = savedPos;
+	        FlxG.sound.music.time = savedPos;
+	        Conductor.lastSongPos = savedPos;
+                }
 
 		createGrids();
 
